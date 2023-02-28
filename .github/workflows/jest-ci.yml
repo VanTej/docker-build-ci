@@ -11,7 +11,6 @@ jobs:
       - name: Goto client and run tests
         run: cd client && npm i && npm test
   docker:
-    if: success('test-front')
     needs: test-front
     if: github.ref == 'refs/heads/main' && needs.test-front.result == 'success'
     runs-on: ubuntu-latest
