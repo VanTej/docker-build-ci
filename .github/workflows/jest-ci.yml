@@ -11,8 +11,8 @@ jobs:
       - name: Goto client and run tests
         run: cd client && npm i && npm test
   docker:
-    # needs: test-front
-    if: github.ref == 'refs/heads/main' && needs.test-front.result == 'success'
+    needs: test-front
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - name: Set up QEMU
@@ -28,5 +28,5 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/quete1902:latest
           context: "{{defaultContext}}:client"
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/quete1902:latest
